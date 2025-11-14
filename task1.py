@@ -4,7 +4,7 @@ def Difficulty(dif):
         if dif in ("easy", "medium", "hard"):
             return dif
         dif = str(input("Input only one of these words: easy, medium or hard: "))
-def Creating_password(dif):
+def Creating_password(dif): 
     n=15
     password=""
     if dif == "easy":
