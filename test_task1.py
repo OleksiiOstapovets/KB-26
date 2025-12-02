@@ -6,22 +6,27 @@ class Test_Difficulty(unittest.TestCase):
 		self.assertIsInstance(Difficulty("easy"), str)
 		self.assertIsInstance(Difficulty("medium"), str)
 		self.assertIsInstance(Difficulty("hard"), str)
+
 	def test_length_default(self): #Довжина пароля завжди 15 символів
 		self.assertEqual(len(Creating_password("easy")), 15)
 		self.assertEqual(len(Creating_password("medium")), 15)
 		self.assertEqual(len(Creating_password("hard")), 15)
+
 	def test_easy(self):
 		pw = Creating_password("easy") #Перевірка символів для легкого рівня
 		for ch in pw:
 			self.assertTrue(ch.islower() or ch.isdigit(),f"char {ch!r} is not allowed in easy")
+
 	def test_medium(self): #Перевірка символів для середнього рівня
 		pw = Creating_password("medium")
 		for ch in pw:
 			self.assertTrue(ch.isalpha() or ch.isdigit(),f"char {ch!r} is not allowed in medium")
+
 	def test_hard(self): #Перевірка символів для складного рівня
 		pw = Creating_password("hard")
 		allowed = set(string.ascii_letters + string.digits + string.punctuation)
 		for ch in pw:
 			self.assertIn(ch, allowed, f"char {ch!r} is not allowed in hard")
+			
 if __name__ == "__main__":
 	unittest.main()

@@ -1,56 +1,43 @@
-"""Utilities to identify weak passwords.
+import string
 
-Provides a `weak_passwords_list` (common weak passwords) and helpers to
-detect passwords that are weak because they are in the list, contain only
-digits, or contain only lowercase letters.
+def is_only_digits(text): # Чи складається тільки з чисел
+    return text.isdigit()
 
-Functions:
-  - is_only_digits(s)
-  - is_only_lowercase_letters(s)
-  - is_weak_password(pw)
-  - find_weak(passwords)
-"""
+def is_too_short(text): # Чи не надто короткий
+    return len(text) < 12
 
-from typing import Iterable, List
-weak_passwords_list: List[str] = [
-    "password",
-    "123456",
-    "12345678",
-    "qwerty",
-    "abc123",
-    "monkey",
-    "letmein",
-    "dragon",
-    "111111",
-    "baseball",
-]
-def is_only_digits(s: str) -> bool:
-    """Return True if the string consists only of digits (and non-empty)."""
-    return isinstance(s, str) and s.isdigit() and len(s) > 0
-def is_only_lowercase_letters(s: str) -> bool:
-    """Return True if the string consists only of lowercase letters (and non-empty)."""
-    return isinstance(s, str) and s.isalpha() and s.islower() and len(s) > 0
-def is_weak_password(pw: str) -> bool:
-    """Return True if `pw` is considered weak.
-    A password is weak when any of the following is true:
-      - exactly matches an entry in `weak_passwords_list` (case-sensitive)
-      - contains only digits
-      - contains only lowercase letters
-    Non-string inputs will be converted to str before checking.
-    """
-    if not isinstance(pw, str):
-        pw = str(pw)
-    if pw in weak_passwords_list:
-        return True
-    if is_only_digits(pw):
-        return True
-    if is_only_lowercase_letters(pw):
+def is_only_lowercase_letters(text): # Чи не містить тільки малі букви
+    for _ in text:
+        if not ascii("a") <= ascii(_) <= ascii("z"):
+            return False
+    return True 
+
+def from_weak_list(text): # Чи не є поширеним
+    weak_passwords_list = ["password","admin","Password","Aa123456","Pass@123","P@ssw0rd","admin123","123456789","1234567890","12345678910","123456","12345678","qwerty","abc123","monkey","1q2w3e4r5t","dragon","111111","baseball","123123"]
+    if text in weak_passwords_list:
         return True
     return False
-def find_weak(passwords: Iterable[str]) -> List[str]:
-    """Return a list of passwords from the iterable that are weak."""
-    return [pw for pw in passwords if is_weak_password(pw)]
+    
+def is_special_symbol(pw): # Чи містить спеціальний символ
+    for _ in pw:
+        if _ in string.punctuation:
+            return True
+    return False
+
+def is_weak_password(pw): # Головна функція
+    if from_weak_list(pw):
+        return 'This password is too weak. It is too popular!'
+    elif is_too_short(pw):
+        return 'This password is too short!'
+    elif is_only_digits(pw):
+        return 'This password is too weak. It consist only of digits!'
+    elif is_only_lowercase_letters(pw):
+        return 'This password is too weak. It consist only of lowercase letters!'
+    elif not is_special_symbol(pw):
+        return 'This password is good, but you can make it more complicated by adding a special symbol!'
+    else:
+        return 'This password is good enough'
+    
 if __name__ == "__main__":
-    # Simple demo when run directly
-    sample = ["password", "hunter2", "1234", "abcdef", "Abcdef1!"]
-    print("Weak passwords from sample:", find_weak(sample))
+    word = str(input('Input your password\n'))
+    print(is_weak_password(word))
