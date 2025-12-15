@@ -414,4 +414,4 @@ AESModesOfOperation = dict(
 key = b"this_key_16_demo"
 aes = AESModeOfOperationCBC(key)
 chiphertext = aes.encrypt(b"Hello World!!!!!")
-print(chiphertext)
+print(chiphertext) # encrypted
