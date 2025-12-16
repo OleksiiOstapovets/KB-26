@@ -38,7 +38,7 @@ class TestAESCore(unittest.TestCase):
         )
 
 
-class TestAESCTRMode(unittest.TestCase):
+class TestAESCTRMode(unittest.TestCase): # Тести режиму CTR
 
     def test_ctr_encrypt_decrypt(self):
         key = b"this_key_16_demo"
@@ -55,7 +55,7 @@ class TestAESCTRMode(unittest.TestCase):
     def test_ctr_accepts_any_length(self):
         key = b"this_key_16_demo"
 
-        data = b"A" * 37  # НЕ кратно 16
+        data = b"A" * 37
         aes = AESModeOfOperationCTR(key)
 
         encrypted = aes.encrypt(data)
