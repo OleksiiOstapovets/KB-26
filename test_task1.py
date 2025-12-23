@@ -7,10 +7,10 @@ class Test_Difficulty(unittest.TestCase):
 		self.assertIsInstance(Difficulty("medium"), str)
 		self.assertIsInstance(Difficulty("hard"), str)
 
-	def test_length_default(self): #Довжина пароля завжди 15 символів
-		self.assertEqual(len(Creating_password("easy")), 15)
-		self.assertEqual(len(Creating_password("medium")), 15)
-		self.assertEqual(len(Creating_password("hard")), 15)
+	def test_length_default(self): #Довжина пароля завжди 12 символів
+		self.assertEqual(len(Creating_password("easy")), 12)
+		self.assertEqual(len(Creating_password("medium")), 12)
+		self.assertEqual(len(Creating_password("hard")), 12)
 
 	def test_easy(self):
 		pw = Creating_password("easy") #Перевірка символів для легкого рівня

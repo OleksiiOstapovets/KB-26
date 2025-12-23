@@ -5,7 +5,7 @@ def Difficulty(dif):
             return dif
         dif = str(input("Input only one of these words: easy, medium or hard: "))
 def Creating_password(dif): 
-    n=15
+    n=12
     password=""
     if dif == "easy":
         for i in range(n):
